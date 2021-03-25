@@ -6,7 +6,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -32,6 +34,25 @@ public class HelloController {
         String ipAddr = getIpAddr(request);
         helloWorldVO.setHello(ipAddr);
         return helloWorldVO;
+    }
+
+    @GetMapping("/session")
+    public void getSession(HttpServletRequest request, HttpServletResponse response) {
+        Cookie cookie = new Cookie("admin", "123456");
+        cookie.setMaxAge(600);
+        response.addCookie(cookie);
+    }
+
+    @GetMapping("/cookie")
+    public void cookie(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            String name = cookie.getName();
+            if (name.equals("admin")) {
+                System.out.println(cookie.getValue());
+                System.out.println(cookie.getMaxAge());
+            }
+        }
     }
 
     public static String getIpAddr(HttpServletRequest request) {
