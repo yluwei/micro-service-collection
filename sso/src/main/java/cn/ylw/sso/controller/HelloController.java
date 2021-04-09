@@ -1,8 +1,10 @@
 package cn.ylw.sso.controller;
 
+import cn.ylw.sso.dao.UserDao;
 import cn.ylw.sso.vo.HelloWorldVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +23,9 @@ import java.net.UnknownHostException;
 @RestController
 @Slf4j
 public class HelloController {
+
+    @Autowired
+    private UserDao userDao;
 
     @GetMapping("/hello/world")
     public HelloWorldVO hello(String hello, Integer world, HttpServletRequest request) {
