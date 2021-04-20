@@ -10,6 +10,13 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 认证配置
@@ -20,7 +27,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 @Configuration
 // 开启认证服务器，很重要
 @EnableAuthorizationServer
-public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
+public class JwtAuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
 
     @Autowired
@@ -32,10 +39,20 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private AuthenticationConfiguration authenticationConfiguration;
 
+    @Autowired
+    private JwtTokenStore tokenStore;
+
+    @Autowired
+    private JwtAccessTokenConverter jwtAccessTokenConverter;
+
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         // 设置密码加密器，测试发现如果把md5PasswordEncoder设置为Bean，会自动注入
-        security.passwordEncoder(md5PasswordEncoder);
+        security.passwordEncoder(md5PasswordEncoder)
+            // 允许访问/oauth/check_token接口，否则会返魂403，该接口的作用就是获取用户信息
+            .checkTokenAccess("permitAll()")
+            // 允许访问/oauth/token_key接口，该接口的作用是获取token公钥
+            .tokenKeyAccess("permitAll()");
     }
 
     @Override
@@ -64,9 +81,28 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
         // 之前通过lamda表达式的方式配置，结果一直抛出用户名或密码不正确，打断点发现
         // 用户校验的时候用的是InMemoryUserDetailManager，所以必须以bean的形式配置
         endpoints.userDetailsService(userService)
+            // token存储方式，这里使用JWT
+            .tokenStore(tokenStore)
+            // 配置token转换，这一步很重要，配置之后才会使用jwt，只配置tokenStore无效
+            .accessTokenConverter(jwtAccessTokenConverter)
+            // 配置token增强，可添加自定义属性
+            // 注意，这里单独配置会导致jwtAccessTokenConverter失效
+//            .tokenEnhancer(new JwtTokenEnhancer())
+            // 使用TokenEnhancerChain可避免此问题
+            .tokenEnhancer(tokenEnhancerChain())
             // 配置客户端获取token支持的method，不配置无法访问
             .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
             // 这里如果使用的是密码模式必须配置，测试发现不配置会抛出不支持passsword grant type异常
             .authenticationManager(authenticationConfiguration.getAuthenticationManager());
+    }
+
+    // 增强链配置
+    private TokenEnhancerChain tokenEnhancerChain() {
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        List<TokenEnhancer> list = new ArrayList<>();
+        list.add(jwtAccessTokenConverter);
+        list.add(new JwtTokenEnhancer());
+        tokenEnhancerChain.setTokenEnhancers(list);
+        return tokenEnhancerChain;
     }
 }
