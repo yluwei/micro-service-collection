@@ -1,5 +1,7 @@
 package cn.ylw.sso.resources.controller;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,5 +17,12 @@ public class UserController {
     @GetMapping("/hello")
     public String hello() {
         return "hello world";
+    }
+
+    @GetMapping("/user")
+    public Object user() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
+        return principal;
     }
 }

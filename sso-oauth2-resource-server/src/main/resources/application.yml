@@ -1,8 +1,15 @@
 server:
   port: 9003
-#      client:
-#        registration:
-#          client-id: sso
-#          client-secret: 123456
 logging:
   config: classpath:logback-spring.xml
+security:
+  oauth2:
+    # 配置了以后访问key-uri才不会401
+    client:
+      client-id: sso
+      client-secret: 123456
+    resource:
+      # 这里可以配置check_token，这样每次都会去认证服务器检验token，不建议使用
+#      token-info-uri: http://localhost:9002/oauth/check_token
+      jwt:
+        key-uri: http://localhost:9002/oauth/token_key
