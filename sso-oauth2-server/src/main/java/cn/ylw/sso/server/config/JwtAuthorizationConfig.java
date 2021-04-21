@@ -100,8 +100,9 @@ public class JwtAuthorizationConfig extends AuthorizationServerConfigurerAdapter
     private TokenEnhancerChain tokenEnhancerChain() {
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
         List<TokenEnhancer> list = new ArrayList<>();
-        list.add(jwtAccessTokenConverter);
         list.add(new JwtTokenEnhancer());
+        // 这里非常重要，jwtAccessTokenConverter一定要放到最后，不然token里面不会包含自定义信息
+        list.add(jwtAccessTokenConverter);
         tokenEnhancerChain.setTokenEnhancers(list);
         return tokenEnhancerChain;
     }
