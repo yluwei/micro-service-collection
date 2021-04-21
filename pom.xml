@@ -12,6 +12,7 @@
         <module>sso-oauth2</module>
         <module>sso-oauth2-client</module>
         <module>sso-oauth2-server</module>
+        <module>sso-oauth2-resource-server</module>
     </modules>
     <packaging>pom</packaging>
 
