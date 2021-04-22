@@ -13,6 +13,9 @@
         <module>sso-oauth2-client</module>
         <module>sso-oauth2-server</module>
         <module>sso-oauth2-resource-server</module>
+        <module>eureka-registry-center</module>
+        <module>eureka-registry-center-replica</module>
+        <module>eureka-client</module>
     </modules>
     <packaging>pom</packaging>
 

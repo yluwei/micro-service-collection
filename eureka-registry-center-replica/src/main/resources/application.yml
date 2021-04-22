@@ -1,0 +1,13 @@
+server:
+  port: 10001
+spring:
+  application:
+    name: eureka-registy-center
+eureka:
+  instance:
+    hostname: eureka2.com
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka1.com:10000/eureka
