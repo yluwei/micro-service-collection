@@ -22,7 +22,11 @@ public class UserController {
     @GetMapping("/user")
     public Object user() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = authentication.getPrincipal();
-        return principal;
+        return authentication.getPrincipal();
+    }
+
+    @GetMapping("/money")
+    public String money() {
+        return "money";
     }
 }

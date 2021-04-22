@@ -7,10 +7,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+
+import java.util.HashMap;
 
 /**
  * 资源服务器
@@ -35,14 +34,21 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         jwtAccessTokenConverter.setAccessTokenConverter(defaultConverter);
     }
 
+//    @Override
+//    public void configure(HttpSecurity http) throws Exception {
+//        http.authorizeRequests()
+//            // 配置/hello/**路径访问不需要登录
+//            .antMatchers("/hello/**").permitAll()
+//            // 自定义鉴权管理器
+//            .anyRequest().authenticated();
+//    }
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
+        HashMap<String, Object> principal = new HashMap<>();
+        principal.put("user_id", "sso-anonymous");
         http.authorizeRequests()
-            // 配置/user/**路径访问需要登录
-            .antMatchers("/user/**")
-            .authenticated()
-            // 配置/hello/**路径访问不需要登录
-            .antMatchers("/hello/**")
-            .permitAll();
+            .anyRequest().authenticated().accessDecisionManager(new UrlAccessDecisionManager())
+            .and().anonymous().principal(principal);
     }
 }
