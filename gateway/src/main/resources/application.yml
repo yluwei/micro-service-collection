@@ -1,0 +1,39 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        -   id: test
+            predicates:
+              - Path=/test/**
+            uri: lb://eureka-client
+            filters:
+              # 转发到下游剥离路径数
+              - StripPrefix=1
+              - name: Hystrix
+                args:
+                  name: fallbackcmd
+                  fallbackUri: forward:/fail
+
+#熔断配置
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 3000
+  shareSecurityContext: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10001/eureka,http://localhost:10001/eureka

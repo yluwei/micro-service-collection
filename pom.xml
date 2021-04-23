@@ -16,6 +16,7 @@
         <module>eureka-registry-center</module>
         <module>eureka-registry-center-replica</module>
         <module>eureka-client</module>
+        <module>gateway</module>
     </modules>
     <packaging>pom</packaging>
 
