@@ -7,3 +7,7 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:10001/eureka,http://localhost:10001/eureka
+# 配置feign超时时间
+ribbon:
+  ConnectTimeout: 5000
+  ReadTimeout: 5000

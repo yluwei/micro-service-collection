@@ -2,7 +2,7 @@ server:
   port: 9002
 spring:
   application:
-    name: sso
+    name: sso-server
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/sso?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&&serverTimezone=GMT%2B8
@@ -10,3 +10,7 @@ spring:
     password: 123456
 logging:
   config: classpath:logback-spring.xml
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10001/eureka,http://localhost:10001/eureka
