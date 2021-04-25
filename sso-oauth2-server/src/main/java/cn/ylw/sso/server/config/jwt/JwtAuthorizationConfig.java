@@ -1,5 +1,6 @@
-package cn.ylw.sso.server.config;
+package cn.ylw.sso.server.config.jwt;
 
+import cn.ylw.sso.server.config.Md5PasswordEncoder;
 import cn.ylw.sso.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -24,9 +25,9 @@ import java.util.List;
  * @author yanluwei
  * @date 2021/4/19
  */
-@Configuration
+//@Configuration
 // 开启认证服务器，很重要
-@EnableAuthorizationServer
+//@EnableAuthorizationServer
 public class JwtAuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
 

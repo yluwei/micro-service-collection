@@ -1,4 +1,4 @@
-package cn.ylw.sso.server.config;
+package cn.ylw.sso.server.config.jwt;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +12,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
  * @author yanluwei
  * @date 2021/4/20
  */
-@Configuration
+//@Configuration
 public class JwtTokenStoreConfig {
 
     @Bean

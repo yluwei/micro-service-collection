@@ -1,4 +1,4 @@
-package cn.ylw.sso.server.config;
+package cn.ylw.sso.server.config.jwt;
 
 import cn.ylw.sso.server.entity.User;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
