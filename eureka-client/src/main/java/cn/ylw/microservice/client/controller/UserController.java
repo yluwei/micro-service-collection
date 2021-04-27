@@ -23,6 +23,9 @@ public class UserController {
     @Autowired
     private ProxyFactoryBean<UserService> proxyFactoryBean;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/hello")
     public String hello() {
         return "hello world";
@@ -41,6 +44,8 @@ public class UserController {
 
     @GetMapping("/factory/bean")
     public String factoryBean() throws Exception {
+        String username = userService.getUsername();
+        System.out.println(username);
         UserService object = proxyFactoryBean.getObject();
         return object.getUsername();
     }
