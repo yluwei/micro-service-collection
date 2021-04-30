@@ -27,8 +27,12 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/hello")
-    public String hello() {
-        return "hello world";
+    public String hello(Integer flag) {
+        if (flag == null) {
+            return "hello world";
+        } else {
+            throw new IllegalArgumentException("aop异常");
+        }
     }
 
     @GetMapping("/sso/server/hello")
