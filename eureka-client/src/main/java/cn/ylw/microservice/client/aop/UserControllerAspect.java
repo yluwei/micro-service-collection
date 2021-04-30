@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 切面
+ * 只有Around方法可以改变返回结果，其他方法只能做处理
  *
  * @author yanluwei
  * @date 2021/4/30
@@ -36,7 +37,9 @@ public class UserControllerAspect {
         MethodSignature methodSignature = (MethodSignature) signature;
         String name = methodSignature.getMethod().getName();
         System.out.println("执行方法：" + name);
-        return proceedingJoinPoint.proceed(proceedingJoinPoint.getArgs());
+        Object proceed = proceedingJoinPoint.proceed(proceedingJoinPoint.getArgs());
+        System.out.println(proceed);
+        return "aop执行成功";
     }
 
     @AfterReturning(value = "pointCut()", returning = "test")
