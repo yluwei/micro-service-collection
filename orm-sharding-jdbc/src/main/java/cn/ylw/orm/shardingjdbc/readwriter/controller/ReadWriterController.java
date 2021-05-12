@@ -27,7 +27,7 @@ public class ReadWriterController {
         return userDao.listUsers();
     }
 
-    @GetMapping("/writer")
+    @GetMapping("/write")
     public String writerUser() {
         User user = new User();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HHmmss");
