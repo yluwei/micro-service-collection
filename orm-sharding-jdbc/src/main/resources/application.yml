@@ -15,15 +15,47 @@ spring:
         jdbcUrl: jdbc:mysql://localhost:3306/slave?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
         username: root
         password: 123456
+#      shard1:
+#        type: com.zaxxer.hikari.HikariDataSource
+#        driverClassName: com.mysql.cj.jdbc.Driver
+#        jdbcUrl: jdbc:mysql://localhost:3306/shard1?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+#        username: root
+#        password: 123456
+#      shard2:
+#        type: com.zaxxer.hikari.HikariDataSource
+#        driverClassName: com.mysql.cj.jdbc.Driver
+#        jdbcUrl: jdbc:mysql://localhost:3306/shard2?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+#        username: root
+#        password: 123456
       names: master,slave
+    # 读写分离配置
     masterslave:
+      # 注意这里很奇怪
+      # 配置name字段，就会创建masterSlaveDataSource，不配置则是shardingDataSource
+      # shardingDataSource无法使用主写从读，而是全部轮询读写
+      # 这里需要看源码深入了解
+      name: readWriteDataSource
       load-balance-algorithm-type: round_robin
+      master-data-source-name: master
+      slave-data-source-names: slave
+#    # 分库分表配置
+#    sharding:
+#      tables:
+#        blog:
+#          # 配置表分布
+#          actual-data-nodes: shard$->{1..2}.blog$->{1..3}
+#          # 配置主键生成策略
+#          # 分库策略
+#          database-strategy:
+#            inline:
+#              sharding-column: id
+#              algorithm-expression: shard$->{id % 2 +1}
+#          # 分表策略
+#          table-strategy:
+#            inline:
+#              sharding-column: id
+#              algorithm-expression: blog$->{id % 3}
     props:
       sql.show: true
-    sharding:
-      master-slave-rules:
-        test:
-          master-data-source-name: master
-          slave-data-source-names: slave
 logging:
   config: classpath:logback-spring.xml

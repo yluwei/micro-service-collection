@@ -1,4 +1,4 @@
-package cn.ylw.orm.shardingjdbc.readwriter.entity;
+package cn.ylw.orm.shardingjdbc.readwrite.entity;
 
 import lombok.Data;
 

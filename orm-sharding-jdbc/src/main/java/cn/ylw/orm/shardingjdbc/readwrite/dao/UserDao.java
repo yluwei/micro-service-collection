@@ -1,6 +1,6 @@
-package cn.ylw.orm.shardingjdbc.readwriter.dao;
+package cn.ylw.orm.shardingjdbc.readwrite.dao;
 
-import cn.ylw.orm.shardingjdbc.readwriter.entity.User;
+import cn.ylw.orm.shardingjdbc.readwrite.entity.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

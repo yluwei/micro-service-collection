@@ -1,7 +1,7 @@
-package cn.ylw.orm.shardingjdbc.readwriter.controller;
+package cn.ylw.orm.shardingjdbc.readwrite.controller;
 
-import cn.ylw.orm.shardingjdbc.readwriter.dao.UserDao;
-import cn.ylw.orm.shardingjdbc.readwriter.entity.User;
+import cn.ylw.orm.shardingjdbc.readwrite.dao.UserDao;
+import cn.ylw.orm.shardingjdbc.readwrite.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ylw.orm.shardingjdbc.readwrite.dao.UserDao">
+    <select id="listUsers" resultType="cn.ylw.orm.shardingjdbc.readwrite.entity.User">
+        select id,name,role from user
+    </select>
+
+    <insert id="insetUser" parameterType="cn.ylw.orm.shardingjdbc.readwrite.entity.User">
+        insert into user (name,role) values (#{name},#{role})
+    </insert>
+</mapper>
