@@ -1,0 +1,29 @@
+server:
+  port: 9006
+spring:
+  shardingsphere:
+    datasource:
+      master:
+        type: com.zaxxer.hikari.HikariDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        jdbcUrl: jdbc:mysql://localhost:3306/master?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+        username: root
+        password: 123456
+      slave:
+        type: com.zaxxer.hikari.HikariDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        jdbcUrl: jdbc:mysql://localhost:3306/slave?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+        username: root
+        password: 123456
+      names: master,slave
+    masterslave:
+      load-balance-algorithm-type: round_robin
+    props:
+      sql.show: true
+    sharding:
+      master-slave-rules:
+        test:
+          master-data-source-name: master
+          slave-data-source-names: slave
+logging:
+  config: classpath:logback-spring.xml
