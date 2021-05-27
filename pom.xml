@@ -31,6 +31,8 @@
         <mybatis.spring.version>2.1.2</mybatis.spring.version>
         <mysql.driver.version>8.0.13</mysql.driver.version>
         <sharding-jdbc.version>4.1.1</sharding-jdbc.version>
+        <jedis.version>3.2.0</jedis.version>
+        <guava.version>28.2-jre</guava.version>
     </properties>
 
     <dependencyManagement>
@@ -73,6 +75,16 @@
                 <groupId>org.apache.shardingsphere</groupId>
                 <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
                 <version>${sharding-jdbc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>${jedis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
