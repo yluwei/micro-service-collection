@@ -33,6 +33,8 @@
         <sharding-jdbc.version>4.1.1</sharding-jdbc.version>
         <jedis.version>3.2.0</jedis.version>
         <guava.version>28.2-jre</guava.version>
+        <zookeeper.version>3.7.0</zookeeper.version>
+        <curator.verson>4.2.0</curator.verson>
     </properties>
 
     <dependencyManagement>
@@ -85,6 +87,16 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>${zookeeper.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-recipes</artifactId>
+                <version>${curator.verson}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
