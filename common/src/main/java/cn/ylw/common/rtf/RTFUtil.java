@@ -41,6 +41,7 @@ public class RTFUtil {
 
     public static void rtf2docx() throws Exception {
 
+        // poi操作word
         XWPFDocument document = new XWPFDocument();
 
         Document rtf = new Document("D://test.rtf");
@@ -51,8 +52,10 @@ public class RTFUtil {
             // 读取段落
             ParagraphCollection paragraphs = body.getParagraphs();
             for (Paragraph paragraph : paragraphs) {
-                XWPFParagraph documentParagraph = document.createParagraph();
                 String text = paragraph.getText();
+
+                // poi操作word
+                XWPFParagraph documentParagraph = document.createParagraph();
                 XWPFRun run = documentParagraph.createRun();
                 run.setText(text);
             }
@@ -60,21 +63,30 @@ public class RTFUtil {
             // 读取表格
             TableCollection tables = body.getTables();
             for (Table table : tables) {
+
+                // poi操作word
                 XWPFTable documentTable = document.createTable();
                 CTTblWidth infoTableWidth = documentTable.getCTTbl().addNewTblPr().addNewTblW();
                 infoTableWidth.setType(STTblWidth.DXA);
                 infoTableWidth.setW(BigInteger.valueOf(9072));
+
                 RowCollection rows = table.getRows();
                 int i = 0;
                 for (Row row : rows) {
                     CellCollection cells = row.getCells();
+
+                    // poi操作word
                     XWPFTableRow documentTableRow = documentTable.getRow(i);
                     if (documentTableRow == null) {
                         documentTableRow = documentTable.createRow();
                     }
+
+
                     int j = 0;
                     for (Cell cell : cells) {
                         String text = cell.getText().trim();
+
+                        // poi操作word
                         XWPFTableCell documentTableRowCell = documentTableRow.getCell(j);
                         if (documentTableRowCell == null) {
                             documentTableRowCell = documentTableRow.createCell();
@@ -91,6 +103,8 @@ public class RTFUtil {
             for (Shape shape : (Iterable<Shape>) childNodes) {
                 if (shape.hasImage()) {
                     ImageData imageData = shape.getImageData();
+
+                    // poi操作word
                     XWPFParagraph paragraph = document.createParagraph();
                     XWPFRun run = paragraph.createRun();
                     run.addPicture(new ByteArrayInputStream(imageData.getImageBytes()),
@@ -101,6 +115,7 @@ public class RTFUtil {
             // 保存docx
             File file = new File("D://test.docx");
             FileOutputStream fileOutputStream = new FileOutputStream(file);
+            // poi操作word
             document.write(fileOutputStream);
             fileOutputStream.close();
         }
