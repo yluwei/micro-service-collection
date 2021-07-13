@@ -66,7 +66,6 @@ public class RTFUtil {
                         // poi操作word
                         XWPFParagraph documentParagraph = document.createParagraph();
 
-
                         for (Node pNode : paragraphChild) {
                             int pNodeType = pNode.getNodeType();
                             switch (pNodeType) {
@@ -93,9 +92,6 @@ public class RTFUtil {
                                     break;
                             }
                         }
-                        String paragraphText = paragraph.getText();
-
-
                         break;
                     case NodeType.TABLE:
 
