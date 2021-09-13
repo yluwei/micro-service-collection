@@ -19,6 +19,7 @@
         <module>gateway</module>
         <module>orm-sharding-jdbc</module>
         <module>common</module>
+        <module>websocket</module>
     </modules>
     <packaging>pom</packaging>
 
