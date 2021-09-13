@@ -20,6 +20,7 @@
         <module>orm-sharding-jdbc</module>
         <module>common</module>
         <module>websocket</module>
+        <module>websocket-client</module>
     </modules>
     <packaging>pom</packaging>
 

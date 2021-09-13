@@ -1,13 +1,12 @@
-package cn.ylw.websocket.config;
+package cn.ylw.websocket;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
 /**
- * TODO
+ * 客户端
  *
  * @author yanluwei
  * @date 2021/9/13
@@ -42,12 +41,5 @@ public class MyWebsocketClient extends WebSocketClient {
     public void connect() {
         super.connect();
         System.out.println("开始连接");
-    }
-
-    public static void main(String[] args) throws URISyntaxException, InterruptedException {
-        MyWebsocketClient my = new MyWebsocketClient(new URI("ws://localhost:8080/websocket"));
-        my.setConnectionLostTimeout(10);
-        my.connect();
-        Thread.sleep(100000);
     }
 }
