@@ -17,7 +17,7 @@ public class ClientConfig {
     @Bean
     public MyWebsocketClient myWebsocketClient() throws URISyntaxException {
         MyWebsocketClient my = new MyWebsocketClient(new URI("ws://localhost:8080/websocket"));
-        my.setConnectionLostTimeout(10);
+        my.setConnectionLostTimeout(10000);
         my.connect();
         return my;
     }

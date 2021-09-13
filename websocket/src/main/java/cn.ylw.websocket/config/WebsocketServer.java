@@ -20,8 +20,15 @@ import java.io.IOException;
 @ServerEndpoint("/websocket")
 public class WebsocketServer {
 
+    private static Session session;
+
+    public static Session getSession() {
+        return session;
+    }
+
     @OnOpen
     public void open(Session session) {
+        WebsocketServer.session = session;
         System.out.println(session);
         System.out.println("连接");
     }
