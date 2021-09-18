@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 public class InPlaceTest {
 
     public static void main(String[] args) {
-        String ori = "hello my girl";
+        String ori = "hello my good girl";
         char[] oriChar = ori.toCharArray();
         reverse(oriChar, 0, oriChar.length - 1);
         String first = new String(oriChar);
